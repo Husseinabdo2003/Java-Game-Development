@@ -21,7 +21,6 @@ public class Wall implements Attackee {
     }
     @Override
     public int getResourcesValue() {
-        // TODO Auto-generated method stub
         return -1;
     }
     

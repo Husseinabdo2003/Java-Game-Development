@@ -68,19 +68,18 @@ public abstract class Titan implements Comparable <Titan>, Attackee, Attacker, M
 
     @Override
     public int getDamage() {
-        // TODO Auto-generated method stub
+        
         return 0;
     }
 
     @Override
     public int getDistance() {
-        // TODO Auto-generated method stub
+        
         return 0;
     }
 
     @Override
     public void setDistance(int distance) {
-        // TODO Auto-generated method stub
         
     }
 
