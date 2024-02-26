@@ -1,6 +1,7 @@
 package game.engine.titans;
+import game.engine.interfaces.*;
 
-public abstract class Titan implements Comparable <Titan>{
+public abstract class Titan implements Comparable <Titan>, Attackee, Attacker, Mobil {
     private int baseHealth;
     private int baseDamage;
     private int heightInMeters;
@@ -9,7 +10,7 @@ public abstract class Titan implements Comparable <Titan>{
     private int resourcesValue;
     private int dangerLevel;
     private int currentHealth;
-
+    
     public Titan( int baseHealth,int baseDamage, int heightInMeters, int distanceFromBase, int speed, int resourcesValue, int dangerLevel ){
         this.baseHealth = baseHealth;
         this.baseDamage = baseDamage;
@@ -29,8 +30,8 @@ public abstract class Titan implements Comparable <Titan>{
         return currentHealth;
     }
     
-    public void setCurrentHealth(int currentHealth) {
-        this.currentHealth = currentHealth;
+    public void setCurrentHealth(int health) {
+        this.currentHealth = health;
     }
 
     public int getBaseDamage() {
@@ -64,7 +65,25 @@ public abstract class Titan implements Comparable <Titan>{
     public int getDangerLevel() {
         return dangerLevel;
     }
-    
+
+    @Override
+    public int getDamage() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int getDistance() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void setDistance(int distance) {
+        // TODO Auto-generated method stub
+        
+    }
+
     @Override
     public int compareTo(Titan o){
        return Integer.compare(this.distanceFromBase, o.distanceFromBase);
