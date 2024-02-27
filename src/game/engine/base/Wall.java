@@ -19,6 +19,7 @@ public class Wall implements Attackee {
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
     }
+
     @Override
     public int getResourcesValue() {
         return -1;
