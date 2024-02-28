@@ -116,7 +116,6 @@ public class Battle {
         return originalLanes;
     }
 
-    @SuppressWarnings("unused")
     private void initializeLanes(int numOfLanes){
         for(int i = 0; i < numOfLanes;i++){
             Wall wall = new Wall(WALL_BASE_HEALTH);
