@@ -10,7 +10,7 @@ import game.engine.weapons.WeaponRegistry;
 
 public class DataLoader {
     private static String TITANS_FILE_NAME = "titans.csv";
-    private String WEAPONS_FILE_NAME = "weapons.csv";
+    private static String WEAPONS_FILE_NAME = "weapons.csv";
 
     public static HashMap <Integer,TitanRegistry> readTitanRegistry() throws IOException{
         HashMap <Integer,TitanRegistry> TitanHashMap = new HashMap<>();
@@ -35,7 +35,7 @@ public class DataLoader {
 
     public static HashMap <Integer,WeaponRegistry> readWeaponRegistry() throws IOException{
         HashMap <Integer, WeaponRegistry> WeaponHashMap = new HashMap<>();
-        try(FileReader fr = new FileReader(TITANS_FILE_NAME); 
+        try(FileReader fr = new FileReader(WEAPONS_FILE_NAME);
             BufferedReader br = new BufferedReader(fr);){
                 String line;
                 while((line = br.readLine()) != null){
