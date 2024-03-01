@@ -9,8 +9,8 @@ import game.engine.titans.TitanRegistry;
 import game.engine.weapons.WeaponRegistry;
 
 public class DataLoader {
-    private static String TITANS_FILE_NAME = "titans.csv";
-    private static String WEAPONS_FILE_NAME = "weapons.csv";
+    private static final String TITANS_FILE_NAME = "titans.csv";
+    private static final String WEAPONS_FILE_NAME = "weapons.csv";
 
     public static HashMap <Integer,TitanRegistry> readTitanRegistry() throws IOException{
         HashMap <Integer,TitanRegistry> TitanHashMap = new HashMap<>();
@@ -52,6 +52,7 @@ public class DataLoader {
                     } else {
                         weaponRegistry = new WeaponRegistry(code, price, damage, name);
                     }
+                WeaponHashMap.put(code, weaponRegistry);
                 }
             }
         return WeaponHashMap;

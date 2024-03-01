@@ -3,12 +3,12 @@ import game.engine.interfaces.*;
 
 public abstract class Titan implements Comparable <Titan>, Attackee, Attacker, Mobil {
     private int baseHealth;
-    private int baseDamage;
-    private int heightInMeters;
+    private final int baseDamage;
+    private final int heightInMeters;
     private int distanceFromBase;
     private int speed;
-    private int resourcesValue;
-    private int dangerLevel;
+    private final int resourcesValue;
+    private final int dangerLevel;
     private int currentHealth;
     
     public Titan(int baseHealth,int baseDamage, int heightInMeters, int distanceFromBase, int speed, int resourcesValue, int dangerLevel){
@@ -31,7 +31,7 @@ public abstract class Titan implements Comparable <Titan>, Attackee, Attacker, M
     }
     
     public void setCurrentHealth(int health) {
-        this.currentHealth = health;
+        this.currentHealth = Math.max(health, 0);
     }
 
     public int getBaseDamage() {
@@ -68,14 +68,12 @@ public abstract class Titan implements Comparable <Titan>, Attackee, Attacker, M
 
     @Override
     public int getDamage() {
-        
-        return 0;
+        return baseDamage;
     }
 
     @Override
     public int getDistance() {
-        
-        return 0;
+        return distanceFromBase;
     }
 
     @Override

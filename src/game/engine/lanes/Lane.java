@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class Lane implements Comparable <Lane> {
-    private Wall laneWall;
+    private final Wall laneWall;
     private int dangerLevel;
-    private PriorityQueue<Titan> titans;
-    private ArrayList<Weapon> weapons;
+    private final PriorityQueue<Titan> titans;
+    private final ArrayList<Weapon> weapons;
 
     public Lane (Wall laneWall){
         this.laneWall = laneWall;
