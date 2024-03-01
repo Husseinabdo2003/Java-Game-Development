@@ -13,7 +13,7 @@ import java.util.PriorityQueue;
 public class Battle {
     private static final int[][] PHASES_APPROACHING_TITANS;
     static{
-        PHASES_APPROACHING_TITANS= new int[][]{
+        PHASES_APPROACHING_TITANS = new int[][]{
         { 1, 1, 1, 2, 1, 3, 4 },
         { 2, 2, 2, 1, 3, 3, 4 },
         { 4, 4, 4, 4, 4, 4, 4 }
@@ -33,7 +33,6 @@ public class Battle {
     private final ArrayList<Lane> originalLanes;
 
     public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes, int initialResourcesPerLane) throws IOException{
-
         this.numberOfTurns = numberOfTurns;
         this.resourcesGathered = initialNumOfLanes * initialResourcesPerLane;
         this.battlePhase = BattlePhase.EARLY;
@@ -56,7 +55,6 @@ public class Battle {
         return WALL_BASE_HEALTH;
     }
 
-    
     public int getNumberOfTurns() {
         return numberOfTurns;
     }
@@ -133,5 +131,4 @@ public class Battle {
             lanes.add(lane);
         }
     }
-
 }

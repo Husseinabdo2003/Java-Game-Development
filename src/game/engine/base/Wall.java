@@ -4,10 +4,12 @@ import game.engine.interfaces.*;
 public class Wall implements Attackee {
     private final int baseHealth;
     private int currentHealth;
+    
     public Wall(int baseHealth){
         this.baseHealth = baseHealth;
         this.currentHealth = baseHealth;
     }
+
     public int getBaseHealth() {
         return baseHealth;
     }
@@ -24,5 +26,4 @@ public class Wall implements Attackee {
     public int getResourcesValue() {
         return -1;
     }
-    
 }

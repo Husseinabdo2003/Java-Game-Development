@@ -7,6 +7,7 @@ public class WeaponRegistry {
     private String name;
     private int minRange;
     private int maxRange;
+
     public WeaponRegistry(int code, int price){
         this.code = code;
         this.price = price;
@@ -51,6 +52,4 @@ public class WeaponRegistry {
     public int getMaxRange() {
         return maxRange;
     }
-
-   
 }

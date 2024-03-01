@@ -21,5 +21,4 @@ public class InsufficientResourcesException extends GameActionException {
     public void setResourcesProvided(int resourcesProvided) {
         this.resourcesProvided = resourcesProvided;
     }
-    
 }
