@@ -15,5 +15,4 @@ public class WeaponFactory {
     public HashMap<Integer, WeaponRegistry> getWeaponShop() {
         return weaponShop;
     }
-    
 }

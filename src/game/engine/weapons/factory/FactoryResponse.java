@@ -17,6 +17,4 @@ public class FactoryResponse {
     public int getRemainingResources() {
         return remainingResources;
     }
-    
-
 }
