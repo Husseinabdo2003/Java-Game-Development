@@ -19,7 +19,7 @@ public abstract class Titan implements Comparable <Titan>, Attackee, Attacker, M
         this.speed = speed;
         this.resourcesValue = resourcesValue;
         this.dangerLevel = dangerLevel;
-        this.currentHealth= baseHealth;
+        this.currentHealth = baseHealth;
     }
     
     public int getBaseHealth() {
