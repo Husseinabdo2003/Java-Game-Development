@@ -7,12 +7,8 @@ public abstract class Weapon implements Attacker{
         this.baseDamage = baseDamage;
     }
     
-    public int getBaseDamage() {
-        return baseDamage;
-    }
-    
     @Override
     public int getDamage() {
-       return getBaseDamage();
+       return baseDamage;
     }    
 }

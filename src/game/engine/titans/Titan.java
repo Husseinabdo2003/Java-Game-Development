@@ -34,20 +34,8 @@ public abstract class Titan implements Comparable <Titan>, Attackee, Attacker, M
         this.currentHealth = Math.max(health, 0);
     }
 
-    public int getBaseDamage() {
-        return baseDamage;
-    }
-
     public int getHeightInMeters() {
         return heightInMeters;
-    }
-
-    public int getDistanceFromBase() {
-        return distanceFromBase;
-    }
-
-    public void setDistanceFromBase(int distanceFromBase) {
-        this.distanceFromBase = distanceFromBase;
     }
 
     public int getSpeed() {
