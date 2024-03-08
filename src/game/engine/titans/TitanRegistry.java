@@ -1,7 +1,7 @@
 package game.engine.titans;
 
 public class TitanRegistry {
-    private int code;
+    private final int code;
     private int baseHealth;
     private int baseDamage;
     private int heightInMeters;
@@ -37,7 +37,7 @@ public class TitanRegistry {
     public int getSpeed() {
         return speed;
     }
-
+    
     public int getResourcesValue() {
         return resourcesValue;
     }

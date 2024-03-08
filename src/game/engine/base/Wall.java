@@ -14,10 +14,12 @@ public class Wall implements Attackee {
         return baseHealth;
     }
 
+    @Override
     public int getCurrentHealth() {
         return currentHealth;
     }
-
+    
+    @Override
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = Math.max(currentHealth, 0);
     }
