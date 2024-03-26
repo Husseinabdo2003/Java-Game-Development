@@ -16,7 +16,7 @@ public class Battle {
         { 2, 2, 2, 1, 3, 3, 4 },
         { 4, 4, 4, 4, 4, 4, 4 }
         };
-    private static final int WALL_BASE_HEALTH = 1000;
+    private static final int WALL_BASE_HEALTH = 10000;
     private int numberOfTurns;
     private int resourcesGathered;
     private BattlePhase battlePhase;
