@@ -7,4 +7,12 @@ public class ColossalTitan extends Titan {
         super(baseHealth, baseDamage, heightInMeters, distanceFromBase, speed, resourcesValue, dangerLevel);
         
     }
+    @Override
+    public boolean move(){
+        super.move();
+        if(!super.move()){
+            setSpeed(getSpeed() + 1);
+        }
+        return super.move();
+    }
 }

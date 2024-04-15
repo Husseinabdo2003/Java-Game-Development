@@ -1,4 +1,5 @@
 package game.engine.base;
+
 import game.engine.interfaces.*;
 
 public class Wall implements Attackee {
