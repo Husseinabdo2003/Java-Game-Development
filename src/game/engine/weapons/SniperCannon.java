@@ -5,14 +5,23 @@ import game.engine.titans.Titan;
 
 public class SniperCannon extends Weapon {
     public static final int WEAPON_CODE = 2;
-    
-    public SniperCannon(int baseDamage){
+
+    public SniperCannon(int baseDamage) {
         super(baseDamage);
     }
 
     @Override
     public int turnAttack(PriorityQueue<Titan> laneTitans) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'turnAttack'");
+        int resourcesGathered = 0;
+        int damage = getDamage();
+        while (!laneTitans.isEmpty()) {
+            Titan target = laneTitans.peek();
+            attack(target);
+            resourcesGathered = resourcesGathered + damage;
+            if (target.isDefeated()) {
+                laneTitans.poll();
+            }
+        }
+        return resourcesGathered;
     }
 }
