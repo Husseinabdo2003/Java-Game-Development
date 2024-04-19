@@ -18,8 +18,8 @@ public class PiercingCannon extends Weapon {
             Titan target = laneTitans.peek();
             attack(target);
             int damage = getDamage();
-            resourcesGathered = resourcesGathered + damage;
             if (target.isDefeated()) {
+                resourcesGathered = 2*damage;
                 laneTitans.poll();
                 numberToAttack--;
             }
