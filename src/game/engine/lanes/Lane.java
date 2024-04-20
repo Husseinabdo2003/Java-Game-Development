@@ -39,6 +39,26 @@ public class Lane implements Comparable <Lane> {
         return weapons;
     }
 
+    public void addTitan(Titan titan){
+        titans.add(titan);
+    }
+
+    public void addWeapon(Weapon weapon){
+        weapons.add(weapon);
+    }
+
+    public void moveLaneTitans(){
+        PriorityQueue <Titan> temp = new PriorityQueue<>();
+        while(!titans.isEmpty()){
+            Titan titan = titans.poll();
+            if (!titan.hasReachedTarget()) {
+                titan.move();
+            }
+            temp.add(titan);
+        }
+        titans.addAll(temp);
+    }
+
     @Override
     public int compareTo(Lane o){
         return Integer.compare(this.dangerLevel, o.dangerLevel);
