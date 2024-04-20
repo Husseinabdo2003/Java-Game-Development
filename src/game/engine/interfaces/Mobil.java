@@ -17,12 +17,12 @@ public interface Mobil {
             return true;
         }
         currentDistance = currentDistance - speed;
-        if(currentDistance < 0){
+        if(hasReachedTarget() == true){
             currentDistance = 0;
         }
         else{
             setDistance(currentDistance);
         }
-        return currentDistance == 0;
+        return hasReachedTarget();
     }
 }

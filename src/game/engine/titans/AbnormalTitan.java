@@ -15,7 +15,7 @@ public class AbnormalTitan extends Titan {
         int damage = getDamage();
         int resourcesGathered = target.takeDamage(damage);
         if (!target.isDefeated()) {
-            attack(target);
+            takeDamage(damage);
             resourcesGathered = resourcesGathered + target.takeDamage(damage);
         }
         return resourcesGathered;
