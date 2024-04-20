@@ -26,15 +26,14 @@ public class VolleySpreadCannon extends Weapon {
     public int turnAttack(PriorityQueue<Titan> laneTitans) {
         int resourcesGathered = 0;
         int damage = getDamage();
-        while (!laneTitans.isEmpty()) {
-            Titan target = laneTitans.poll();
+        for (int i = 0; i < laneTitans.size(); i++) {
+            Titan target = laneTitans.peek();
             int distance = target.getDistance();
             if (distance >= minRange && distance <= maxRange) {
-                attack(target);
-                resourcesGathered = resourcesGathered + damage;
-            }
-            if (target.isDefeated()) {
-                laneTitans.poll();
+                resourcesGathered = resourcesGathered + target.takeDamage(damage);
+                if (target.isDefeated()){
+                    laneTitans.poll();
+                }
             }
         }
         return resourcesGathered;

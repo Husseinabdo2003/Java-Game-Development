@@ -13,11 +13,10 @@ public class SniperCannon extends Weapon {
     @Override
     public int turnAttack(PriorityQueue<Titan> laneTitans) {
         int resourcesGathered = 0;
+        Titan target = laneTitans.peek();
         int damage = getDamage();
-        while (!laneTitans.isEmpty()) {
-            Titan target = laneTitans.peek();
-            attack(target);
-            resourcesGathered = resourcesGathered + damage;
+        if (laneTitans.peek() != null) {
+            resourcesGathered = target.takeDamage(damage);
             if (target.isDefeated()) {
                 laneTitans.poll();
             }

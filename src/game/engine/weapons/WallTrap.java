@@ -14,11 +14,10 @@ public class WallTrap extends Weapon {
     public int turnAttack(PriorityQueue<Titan> laneTitans) {
         int resourcesGathered = 0;
         int damage = getDamage();
-        while (!laneTitans.isEmpty() && laneTitans.peek().hasReachedTarget()) {
-            Titan target = laneTitans.peek();
-            attack(target);
-            if (target.isDefeated()) {
-                resourcesGathered = damage;
+        Titan target = laneTitans.peek();
+        if(target.hasReachedTarget()) {
+            resourcesGathered = target.takeDamage(damage);
+            if(target.isDefeated()){
                 laneTitans.poll();
             }
         }
