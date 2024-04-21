@@ -6,13 +6,13 @@ import game.engine.weapons.Weapon;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-public class Lane implements Comparable <Lane> {
+public class Lane implements Comparable<Lane> {
     private final Wall laneWall;
     private int dangerLevel;
     private final PriorityQueue<Titan> titans;
     private final ArrayList<Weapon> weapons;
 
-    public Lane (Wall laneWall){
+    public Lane(Wall laneWall) {
         this.laneWall = laneWall;
         this.dangerLevel = 0;
         this.titans = new PriorityQueue<>();
@@ -39,17 +39,17 @@ public class Lane implements Comparable <Lane> {
         return weapons;
     }
 
-    public void addTitan(Titan titan){
+    public void addTitan(Titan titan) {
         titans.add(titan);
     }
 
-    public void addWeapon(Weapon weapon){
+    public void addWeapon(Weapon weapon) {
         weapons.add(weapon);
     }
 
-    public void moveLaneTitans(){
-        PriorityQueue <Titan> temp = new PriorityQueue<>();
-        while(!titans.isEmpty()){
+    public void moveLaneTitans() {
+        PriorityQueue<Titan> temp = new PriorityQueue<>();
+        while (!titans.isEmpty()) {
             Titan titan = titans.poll();
             if (!titan.hasReachedTarget()) {
                 titan.move();
@@ -59,8 +59,44 @@ public class Lane implements Comparable <Lane> {
         titans.addAll(temp);
     }
 
+    public int performLaneTitansAttacks() {
+        int resourcesGathered = 0;
+        int n = titans.size();
+        for (int i = 0; i < n; i++) {
+            Titan titan = titans.poll();
+            if (titan.hasReachedTarget()) {
+                resourcesGathered = resourcesGathered + titan.attack(laneWall);
+            } else {
+                titans.add(titan);
+            }
+        }
+        return resourcesGathered;
+    }
+
+    public int performLaneWeaponsAttacks() {
+        int resourcesGathered = 0;
+        for (int i = 0; i < weapons.size(); i++) {
+            Weapon weapon = weapons.get(i);
+            resourcesGathered = resourcesGathered + weapon.turnAttack(titans);
+        }
+        return resourcesGathered;
+    }
+
+    public boolean isLaneLost() {
+        return laneWall.isDefeated();
+    }
+
+    public void updateLaneDangerLevel() {
+        int n = titans.size();
+        for (int i = 0; i < n; i++) {
+            Titan titan = titans.poll();
+            dangerLevel = dangerLevel + titan.getDangerLevel();
+        }
+        setDangerLevel(dangerLevel);
+    }
+
     @Override
-    public int compareTo(Lane o){
+    public int compareTo(Lane o) {
         return Integer.compare(this.dangerLevel, o.dangerLevel);
     }
 }
