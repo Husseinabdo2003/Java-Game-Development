@@ -32,7 +32,7 @@ public class PiercingCannon extends Weapon {
             }
             i++;
         }
-        laneTitans = a;
+        laneTitans.addAll(a);
         return resourcesGathered;
     }
 }
