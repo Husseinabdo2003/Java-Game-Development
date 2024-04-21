@@ -8,19 +8,19 @@ public class WeaponRegistry {
     private int minRange;
     private int maxRange;
 
-    public WeaponRegistry(int code, int price){
+    public WeaponRegistry(int code, int price) {
         this.code = code;
         this.price = price;
     }
 
-    public WeaponRegistry(int code, int price, int damage, String name){
+    public WeaponRegistry(int code, int price, int damage, String name) {
         this.code = code;
         this.price = price;
         this.damage = damage;
         this.name = name;
     }
 
-    public WeaponRegistry(int code, int price, int damage, String name, int minRange, int maxRange){
+    public WeaponRegistry(int code, int price, int damage, String name, int minRange, int maxRange) {
         this.code = code;
         this.price = price;
         this.damage = damage;
@@ -51,5 +51,24 @@ public class WeaponRegistry {
 
     public int getMaxRange() {
         return maxRange;
+    }
+
+    public Weapon buildWeapon() {
+        switch (code) {
+            case 1:
+                return new PiercingCannon(damage);
+
+            case 2:
+                return new SniperCannon(damage);
+
+            case 3:
+                return new VolleySpreadCannon(damage, minRange, maxRange);
+
+            case 4:
+                return new WallTrap(damage);
+
+            default:
+                return null;
+        }
     }
 }
