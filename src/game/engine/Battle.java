@@ -2,8 +2,12 @@ package game.engine;
 
 import game.engine.base.Wall;
 import game.engine.dataloader.DataLoader;
+import game.engine.exceptions.InsufficientResourcesException;
+import game.engine.exceptions.InvalidLaneException;
 import game.engine.lanes.Lane;
 import game.engine.titans.*;
+import game.engine.weapons.Weapon;
+import game.engine.weapons.WeaponRegistry;
 import game.engine.weapons.factory.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,10 +16,10 @@ import java.util.PriorityQueue;
 
 public class Battle {
     private static final int[][] PHASES_APPROACHING_TITANS = {
-        { 1, 1, 1, 2, 1, 3, 4 },
-        { 2, 2, 2, 1, 3, 3, 4 },
-        { 4, 4, 4, 4, 4, 4, 4 }
-        };
+            { 1, 1, 1, 2, 1, 3, 4 },
+            { 2, 2, 2, 1, 3, 3, 4 },
+            { 4, 4, 4, 4, 4, 4, 4 }
+    };
     private static final int WALL_BASE_HEALTH = 10000;
     private int numberOfTurns;
     private int resourcesGathered;
@@ -29,7 +33,8 @@ public class Battle {
     private final PriorityQueue<Lane> lanes;
     private final ArrayList<Lane> originalLanes;
 
-    public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes, int initialResourcesPerLane) throws IOException{
+    public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes,
+            int initialResourcesPerLane) throws IOException {
         this.numberOfTurns = numberOfTurns;
         this.resourcesGathered = initialNumOfLanes * initialResourcesPerLane;
         this.battlePhase = BattlePhase.EARLY;
@@ -55,15 +60,15 @@ public class Battle {
     public int getNumberOfTurns() {
         return numberOfTurns;
     }
-    
+
     public void setNumberOfTurns(int numberOfTurns) {
         this.numberOfTurns = numberOfTurns;
     }
-    
+
     public int getResourcesGathered() {
         return resourcesGathered;
     }
-    
+
     public void setResourcesGathered(int resourcesGathered) {
         this.resourcesGathered = resourcesGathered;
     }
@@ -71,7 +76,7 @@ public class Battle {
     public BattlePhase getBattlePhase() {
         return battlePhase;
     }
-    
+
     public void setBattlePhase(BattlePhase battlePhase) {
         this.battlePhase = battlePhase;
     }
@@ -79,19 +84,19 @@ public class Battle {
     public int getNumberOfTitansPerTurn() {
         return numberOfTitansPerTurn;
     }
-    
+
     public void setNumberOfTitansPerTurn(int numberOfTitansPerTurn) {
         this.numberOfTitansPerTurn = numberOfTitansPerTurn;
     }
-    
+
     public int getScore() {
         return score;
     }
-    
+
     public void setScore(int score) {
         this.score = score;
     }
-    
+
     public int getTitanSpawnDistance() {
         return titanSpawnDistance;
     }
@@ -99,7 +104,7 @@ public class Battle {
     public void setTitanSpawnDistance(int titanSpawnDistance) {
         this.titanSpawnDistance = titanSpawnDistance;
     }
-    
+
     public WeaponFactory getWeaponFactory() {
         return weaponFactory;
     }
@@ -120,12 +125,52 @@ public class Battle {
         return originalLanes;
     }
 
-    private void initializeLanes(int numOfLanes){
-        for(int i = 0; i < numOfLanes; i++){
+    private void initializeLanes(int numOfLanes) {
+        for (int i = 0; i < numOfLanes; i++) {
             Wall wall = new Wall(WALL_BASE_HEALTH);
             Lane lane = new Lane(wall);
             originalLanes.add(lane);
             lanes.add(lane);
         }
+    }
+
+    public void refillApproachingTitans() {
+        approachingTitans.clear();
+        int[] phaseTitan = PHASES_APPROACHING_TITANS[battlePhase.ordinal()];
+        for (int i = 0; i < phaseTitan.length; i++) {
+            TitanRegistry titanRegistry = titansArchives.get(phaseTitan[i]);
+            if (titanRegistry != null) {
+                Titan titan = titanRegistry.spawnTitan(titanSpawnDistance);
+                approachingTitans.add(titan);
+            }
+        }
+    }
+
+    public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException,
+            InvalidLaneException {
+        if (lane.isLaneLost()) {
+            throw new InvalidLaneException();
+        }
+        FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
+        Weapon weapon = factoryResponse.getWeapon();
+        resourcesGathered = factoryResponse.getRemainingResources();
+        lane.addWeapon(weapon);
+
+        // WeaponRegistry weaponRegistry =
+        // weaponFactory.getWeaponShop().get(weaponCode);
+        // int price = weaponRegistry.getPrice();
+        // if (price > resourcesGathered) {
+        // throw new InsufficientResourcesException(resourcesGathered);
+        // }
+        // Weapon weapon = weaponRegistry.buildWeapon();
+        // WeaponRegistry weaponRegistry = weaponFactory.getWeaponShop().get();
+        // if (weaponRegistry == null) {
+        // throw new InvalidLaneException();
+        // }
+        // FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered,
+        // weaponCode);
+        // int price = weaponRegistry.getPrice();
+        // lane.addWeapon(weapon);
+        // resourcesGathered -= price;
     }
 }
