@@ -97,6 +97,6 @@ public class Lane implements Comparable<Lane> {
 
     @Override
     public int compareTo(Lane o) {
-        return Integer.compare(this.dangerLevel, o.dangerLevel);
+        return Integer.compare(this.getDangerLevel(), o.getDangerLevel());
     }
 }
