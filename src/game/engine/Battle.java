@@ -7,7 +7,6 @@ import game.engine.exceptions.InvalidLaneException;
 import game.engine.lanes.Lane;
 import game.engine.titans.*;
 import game.engine.weapons.Weapon;
-import game.engine.weapons.WeaponRegistry;
 import game.engine.weapons.factory.*;
 import java.io.IOException;
 import java.util.ArrayList;
