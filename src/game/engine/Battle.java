@@ -173,4 +173,49 @@ public class Battle {
         // lane.addWeapon(weapon);
         // resourcesGathered -= price;
     }
+
+    public void passTurn() {
+        if (lanes.isEmpty()) {
+            return;
+        }
+
+        moveTitans();
+        
+        Lane currentLane = lanes.poll();
+        currentLane.performLaneWeaponsAttacks();
+        currentLane.performLaneTitansAttacks();
+
+        if (!currentLane.isLaneLost()) {
+            lanes.add(currentLane);
+        }
+
+        numberOfTurns++;
+        setNumberOfTurns(numberOfTurns);
+
+        addTurnTitansToLane();
+    }
+
+    private void moveTitans(){
+        for (Lane lane : lanes) {
+            lane.moveLaneTitans();
+        }
+    }
+
+    private void addTurnTitansToLane() {
+        if (approachingTitans.isEmpty()) {
+            refillApproachingTitans();
+        }
+
+        Lane leastDangerousLane = lanes.peek();
+        for (int i = 0; i < numberOfTitansPerTurn && !approachingTitans.isEmpty(); i++) {
+            Titan titan = approachingTitans.get(0);
+            approachingTitans.remove(0);
+            leastDangerousLane.addTitan(titan);
+            lanes.remove(leastDangerousLane);
+            lanes.add(leastDangerousLane);
+            if (approachingTitans.isEmpty()) {
+                refillApproachingTitans();
+            }
+        }
+    }
 }
