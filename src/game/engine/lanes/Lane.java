@@ -83,7 +83,7 @@ public class Lane implements Comparable<Lane> {
     }
 
     public boolean isLaneLost() {
-        return laneWall.isDefeated();
+        return getLaneWall().isDefeated();
     }
 
     public void updateLaneDangerLevel() {

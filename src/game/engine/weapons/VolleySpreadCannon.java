@@ -1,5 +1,6 @@
 package game.engine.weapons;
 
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 import game.engine.titans.Titan;
 
@@ -26,15 +27,18 @@ public class VolleySpreadCannon extends Weapon {
     public int turnAttack(PriorityQueue<Titan> laneTitans) {
         int resourcesGathered = 0;
         int damage = getDamage();
-        for (int i = 0; i < laneTitans.size(); i++) {
-            Titan target = laneTitans.peek();
+        ArrayList<Titan> defated = new ArrayList<>();
+        for (Titan target : laneTitans) {
             int distance = target.getDistance();
             if (distance >= minRange && distance <= maxRange) {
                 resourcesGathered = resourcesGathered + target.takeDamage(damage);
-                if (target.isDefeated()){
-                    laneTitans.poll();
+                if (target.isDefeated()) {
+                    defated.add(target);
                 }
             }
+        }
+        for (Titan defeatedTitan : defated) {
+            laneTitans.remove(defeatedTitan);
         }
         return resourcesGathered;
     }

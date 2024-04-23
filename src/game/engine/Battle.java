@@ -181,9 +181,9 @@ public class Battle {
 
         performTitansAttacks();
 
-        updateLanesDangerLevels();
-
         addTurnTitansToLane();
+
+        updateLanesDangerLevels();
 
         finalizeTurns();
     }
@@ -226,7 +226,6 @@ public class Battle {
 
     private int performTitansAttacks() {
         int totalResources = 0;
-
         for (Lane lane : lanes) {
             totalResources += lane.performLaneTitansAttacks();
         }
