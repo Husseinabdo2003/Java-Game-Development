@@ -159,17 +159,7 @@ public class Battle {
     }
 
     public void passTurn() {
-        moveTitans();
-
-        performWeaponsAttacks();
-
-        performTitansAttacks();
-
-        addTurnTitansToLane();
-
-        updateLanesDangerLevels();
-
-        finalizeTurns();
+        performTurn();
     }
 
     private void moveTitans() {
