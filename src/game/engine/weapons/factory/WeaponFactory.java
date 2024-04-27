@@ -19,9 +19,6 @@ public class WeaponFactory {
     }
 
     public FactoryResponse buyWeapon(int resources, int weaponCode) throws InsufficientResourcesException {
-        if (weaponShop.containsKey(weaponCode) == false) {
-            throw new IllegalArgumentException("Invalid weapon code");
-        }
         WeaponRegistry weaponRegistry = weaponShop.get(weaponCode);
         if (resources < weaponRegistry.getPrice()) {
             throw new InsufficientResourcesException(resources);
