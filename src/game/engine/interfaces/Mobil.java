@@ -2,25 +2,27 @@ package game.engine.interfaces;
 
 public interface Mobil {
     public int getDistance();
+
     public void setDistance(int distance);
+
     public int getSpeed();
+
     public void setSpeed(int speed);
 
-    default boolean hasReachedTarget(){
+    default boolean hasReachedTarget() {
         return getDistance() <= 0;
     }
 
-    default boolean move(){
+    default boolean move() {
         int currentDistance = getDistance();
         int speed = getSpeed();
-        if(currentDistance <= 0){
+        if (currentDistance <= 0) {
             return true;
         }
         currentDistance = currentDistance - speed;
-        if(hasReachedTarget() == true){
+        if (hasReachedTarget() == true) {
             currentDistance = 0;
-        }
-        else{
+        } else {
             setDistance(currentDistance);
         }
         return hasReachedTarget();

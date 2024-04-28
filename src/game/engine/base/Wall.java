@@ -5,8 +5,8 @@ import game.engine.interfaces.*;
 public class Wall implements Attackee {
     private final int baseHealth;
     private int currentHealth;
-    
-    public Wall(int baseHealth){
+
+    public Wall(int baseHealth) {
         this.baseHealth = baseHealth;
         this.currentHealth = baseHealth;
     }
@@ -19,7 +19,7 @@ public class Wall implements Attackee {
     public int getCurrentHealth() {
         return currentHealth;
     }
-    
+
     @Override
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = Math.max(currentHealth, 0);

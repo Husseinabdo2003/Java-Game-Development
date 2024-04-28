@@ -28,17 +28,17 @@ public class WeaponFactory {
         return new FactoryResponse(weapon, remainingResources);
     }
 
-    public void addWeaponToShop(int code, int price){
+    public void addWeaponToShop(int code, int price) {
         WeaponRegistry weaponRegistry = new WeaponRegistry(code, price);
-        weaponShop.put(code,weaponRegistry);
+        weaponShop.put(code, weaponRegistry);
     }
 
-    public void addWeaponToShop(int code, int price, int damage, String name){
+    public void addWeaponToShop(int code, int price, int damage, String name) {
         WeaponRegistry weaponRegistry = new WeaponRegistry(code, price, damage, name);
         weaponShop.put(code, weaponRegistry);
     }
 
-    public void addWeaponToShop(int code, int price, int damage, String name, int minRange,int maxRange){
+    public void addWeaponToShop(int code, int price, int damage, String name, int minRange, int maxRange) {
         WeaponRegistry weaponRegistry = new WeaponRegistry(code, price, damage, name, minRange, maxRange);
         weaponShop.put(code, weaponRegistry);
     }

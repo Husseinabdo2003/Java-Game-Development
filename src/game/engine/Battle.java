@@ -126,18 +126,18 @@ public class Battle {
 
     private void initializeLanes(int numOfLanes) {
         for (int i = 0; i < numOfLanes; i++) {
-            Wall wall = new Wall(WALL_BASE_HEALTH);
+            Wall wall = new Wall(getWallBaseHealth());
             Lane lane = new Lane(wall);
-            originalLanes.add(lane);
-            lanes.add(lane);
+            getOriginalLanes().add(lane);
+            getLanes().add(lane);
         }
     }
 
     public void refillApproachingTitans() {
         approachingTitans.clear();
-        int[] phaseTitan = PHASES_APPROACHING_TITANS[battlePhase.ordinal()];
+        int[] phaseTitan = getPHASES_APPROACHING_TITANS()[battlePhase.ordinal()];
         for (int i = 0; i < phaseTitan.length; i++) {
-            TitanRegistry titanRegistry = titansArchives.get(phaseTitan[i]);
+            TitanRegistry titanRegistry = getTitansArchives().get(phaseTitan[i]);
             if (titanRegistry != null) {
                 Titan titan = titanRegistry.spawnTitan(titanSpawnDistance);
                 approachingTitans.add(titan);
@@ -147,10 +147,10 @@ public class Battle {
 
     public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException,
             InvalidLaneException {
-        if (lane.isLaneLost() || !lanes.contains(lane) || lane == null) {
+        if (lane.isLaneLost() || !lanes.contains(lane)) {
             throw new InvalidLaneException();
         } else {
-            FactoryResponse factoryResponse = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
+            FactoryResponse factoryResponse = getWeaponFactory().buyWeapon(resourcesGathered, weaponCode);
             Weapon weapon = factoryResponse.getWeapon();
             resourcesGathered = factoryResponse.getRemainingResources();
             lane.addWeapon(weapon);
@@ -175,7 +175,7 @@ public class Battle {
 
         Lane leastDangerousLane = lanes.peek();
         for (int i = 0; i < numberOfTitansPerTurn && !approachingTitans.isEmpty(); i++) {
-            Titan titan = approachingTitans.get(0);
+            Titan titan = getApproachingTitans().get(0);
             approachingTitans.remove(0);
             leastDangerousLane.addTitan(titan);
             lanes.remove(leastDangerousLane);
@@ -191,8 +191,7 @@ public class Battle {
         for (Lane lane : lanes) {
             totalResources += lane.performLaneWeaponsAttacks();
         }
-        score += totalResources;
-        setScore(score);
+        setScore(getScore() + totalResources);
         resourcesGathered += totalResources;
         setResourcesGathered(resourcesGathered);
         return totalResources;
@@ -200,24 +199,24 @@ public class Battle {
 
     private int performTitansAttacks() {
         int totalResources = 0;
-        ArrayList<Lane> Lanes = new ArrayList<>();
-        ArrayList<Lane> lanesToRemove = new ArrayList<>();
+        PriorityQueue<Lane> Lanes = new PriorityQueue<>();
+        PriorityQueue<Lane> LanesToRemove = new PriorityQueue<>();
         for (Lane lane : lanes) {
             if (!lane.isLaneLost()) {
                 int resouces = lane.performLaneTitansAttacks();
                 if (lane.isLaneLost()) {
-                    lanesToRemove.add(lane);
+                    LanesToRemove.add(lane);
                 }
                 totalResources += resouces;
             }
         }
-        lanes.removeAll(lanesToRemove);
+        lanes.removeAll(LanesToRemove);
         lanes.addAll(Lanes);
         return totalResources;
     }
 
     private void updateLanesDangerLevels() {
-        ArrayList<Lane> tempLanes = new ArrayList<>();
+        PriorityQueue<Lane> tempLanes = new PriorityQueue<>();
         for (Lane lane : lanes) {
             lane.setDangerLevel(0);
             int dangerLevel = 0;
@@ -232,7 +231,7 @@ public class Battle {
     }
 
     private void finalizeTurns() {
-        numberOfTurns++;
+        setNumberOfTurns(getNumberOfTurns() + 1);
         if (numberOfTurns < 15) {
             setBattlePhase(BattlePhase.EARLY);
         } else if (numberOfTurns < 30) {
